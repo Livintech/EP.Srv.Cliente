@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="MediatR" Version="11.1.0" />
+	  <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+	  <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.Web.Administration" Version="11.1.0" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+	  <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.0" />
+	  <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+	  <PackageReference Include="Serilog.Extensions.Hosting" Version="5.0.1" />
+	  <PackageReference Include="Serilog.Sinks.MySQL" Version="4.6.0" />
+	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EP.Srv.Cliente.CrossCutting\EP.Srv.Cliente.CrossCutting.csproj" />
+    <ProjectReference Include="..\EP.Srv.Cliente.Infrastructure\EP.Srv.Cliente.Infrastructure.csproj" />
+    <ProjectReference Include="..\EP.Srv.Cliente.LogUtility\EP.Srv.Cliente.LogUtility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+</Project>
