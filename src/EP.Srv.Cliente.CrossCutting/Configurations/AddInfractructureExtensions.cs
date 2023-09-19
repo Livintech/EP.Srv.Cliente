@@ -8,7 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-
+using EP.Srv.Cliente.Domain.Commands.Cliente;
+using EP.Srv.Cliente.Application.Interfaces;
+using EP.Srv.Cliente.Application.Services;
+using EP.Srv.Cliente.Infrastructure.Repositories;
+using EP.Srv.Cliente.Domain.Commands.Banco;
+using EP.Srv.Cliente.Application.Handlers.CommandHandlers;
+using Microsoft.AspNetCore.Http;
+using EP.Srv.Cliente.Domain.Interfaces;
+using EP.Srv.Cliente.Infrastructure.Identity;
+using System.Text.Json.Serialization;
+using EP.Srv.Cliente.Domain.Commands.Pagamento;
 
 namespace EP.Srv.Cliente.CrossCutting.Configurations
 {
@@ -17,7 +27,21 @@ namespace EP.Srv.Cliente.CrossCutting.Configurations
         public static IServiceCollection AddConfigurationServices(this IServiceCollection services) 
         {
             //configure services
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IUserIdentity, UserIdentity>();
+
             services.AddScoped<ILoggerHelper, LoggerHelper>();
+            services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+
+            services.AddScoped<IBancoService, BancoService>();
+            services.AddScoped<IBancorepository, Bancorepository>();
+
+            services.AddScoped<IEmpresaService, EmpresaService>();
+            services.AddScoped<IEmpresaRepository, EmpresaRepository>();
+
+            services.AddScoped<IFormaPagamentoService, FormaPagamentoService>();
+            services.AddScoped<IFormaPagamentosRepository, FormaPagamentosRepository>();
 
             return services;
         }
@@ -25,12 +49,24 @@ namespace EP.Srv.Cliente.CrossCutting.Configurations
         public static IServiceCollection AddConfigurationMediatR(this IServiceCollection services)
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
-            //services.AddMediatR(typeof(CreateFileCommand).Assembly);
-            //services.AddMediatR(typeof(CreateFileCommandHandler).Assembly);
+            services.AddMediatR(typeof(CadastroClienteCommand).Assembly);
+            services.AddMediatR(typeof(ClienteCommandHandler).Assembly);
+
+            services.AddMediatR(typeof(CadastroBancoCommand).Assembly);
+            services.AddMediatR(typeof(ListarBancosCommand).Assembly);
+            services.AddMediatR(typeof(ObterBancoByIdCommand).Assembly);
+            services.AddMediatR(typeof(AtualizarBancoCommand).Assembly);
+            services.AddMediatR(typeof(BancoCommandHandler).Assembly);
+
+            services.AddMediatR(typeof(CadastrarFormaPagamentosCommand).Assembly);
+            services.AddMediatR(typeof(ListarFormaPagamentosCommand).Assembly);
+            services.AddMediatR(typeof(AtualizaFormaPagamentosCommand).Assembly);
+            services.AddMediatR(typeof(FormaPagamentosCommandHandler).Assembly);
 
             return services;
         }
-        public static IServiceCollection AddServicesConfigurations(this IServiceCollection services, Action<AppSettingsOptions> appSettingsOptions)
+
+        public static IServiceCollection AddConfigurationsContext(this IServiceCollection services, Action<AppSettingsOptions> appSettingsOptions)
         {
             ArgumentNullException.ThrowIfNull(services, nameof(services));
             ArgumentNullException.ThrowIfNull(appSettingsOptions, nameof(appSettingsOptions));
@@ -98,6 +134,14 @@ namespace EP.Srv.Cliente.CrossCutting.Configurations
 
             return services;
 
+        }
+
+        public static IServiceCollection AddConfigurationsJson(this IServiceCollection services)
+        {
+            services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options 
+                => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+            return services;
         }
     }
 }

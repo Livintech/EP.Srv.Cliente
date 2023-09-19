@@ -7,6 +7,11 @@ namespace EP.Srv.Cliente.Infrastructure.Interfaces
 {
     public interface IAppDbContext
     {
+        DbSet<Domain.Entities.Cliente> Clientes { get; set; }
+        DbSet<Domain.Entities.Empresa> Empresa { get; set; }
+        DbSet<Domain.Entities.Banco> Bancos { get; set; }
+        DbSet<Domain.Entities.FormaPagamento> FormaPagamentos { get; set; }
+
         Task SaveAsync();
         void DetectChanges();
         void EntryChanges<TEntity>([NotNull] TEntity entity, object currentValues);

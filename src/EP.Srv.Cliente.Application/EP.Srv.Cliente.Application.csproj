@@ -24,9 +24,4 @@
     <ProjectReference Include="..\EP.Srv.Cliente.LogUtility\EP.Srv.Cliente.LogUtility.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
