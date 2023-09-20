@@ -12,6 +12,8 @@ namespace EP.Srv.Cliente.Infrastructure.Context
         public DbSet<Domain.Entities.Empresa> Empresa { get; set; } = null!;
         public DbSet<Domain.Entities.Banco> Bancos { get; set; } = null!;
         public DbSet<Domain.Entities.FormaPagamento> FormaPagamentos { get; set; } = null!;
+        public DbSet<Domain.Entities.CentroCustos> CentroCustos { get; set; } = null!;
+        public DbSet<Domain.Entities.ProdutosServicos> ProdutosServicos { get; set; } = null!;
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -54,6 +56,16 @@ namespace EP.Srv.Cliente.Infrastructure.Context
             modelBuilder.Entity<Domain.Entities.FormaPagamento>().HasKey(l => l.Id);
             modelBuilder.Entity<Domain.Entities.FormaPagamento>().Property(l => l.Id).UseMySqlIdentityColumn();
             modelBuilder.Entity<Domain.Entities.FormaPagamento>().HasOne(l => l.Empresa).WithMany(a => a.FormaPagamentos);
+
+            modelBuilder.Entity<Domain.Entities.CentroCustos>().ToTable("CentroCustos");
+            modelBuilder.Entity<Domain.Entities.CentroCustos>().HasKey(l => l.Id);
+            modelBuilder.Entity<Domain.Entities.CentroCustos>().Property(l => l.Id).UseMySqlIdentityColumn();
+            modelBuilder.Entity<Domain.Entities.CentroCustos>().HasOne(l => l.Empresa).WithMany(a => a.CentroCustos);
+
+            modelBuilder.Entity<Domain.Entities.ProdutosServicos>().ToTable("ProdutosServicos");
+            modelBuilder.Entity<Domain.Entities.ProdutosServicos>().HasKey(l => l.Id);
+            modelBuilder.Entity<Domain.Entities.ProdutosServicos>().Property(l => l.Id).UseMySqlIdentityColumn();
+            modelBuilder.Entity<Domain.Entities.ProdutosServicos>().HasOne(l => l.Empresa).WithMany(a => a.ProdutosServicos);
         }
     }
 }

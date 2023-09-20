@@ -19,6 +19,7 @@ using EP.Srv.Cliente.Domain.Interfaces;
 using EP.Srv.Cliente.Infrastructure.Identity;
 using System.Text.Json.Serialization;
 using EP.Srv.Cliente.Domain.Commands.Pagamento;
+using EP.Srv.Cliente.Domain.Commands.CentroCusto;
 
 namespace EP.Srv.Cliente.CrossCutting.Configurations
 {
@@ -43,6 +44,12 @@ namespace EP.Srv.Cliente.CrossCutting.Configurations
             services.AddScoped<IFormaPagamentoService, FormaPagamentoService>();
             services.AddScoped<IFormaPagamentosRepository, FormaPagamentosRepository>();
 
+            services.AddScoped<ICentroCustosService, CentroCustosService>();
+            services.AddScoped<ICentroDeCustoRepository, CentroDeCustoRepository>();
+
+            services.AddScoped<IProdutosServicosService, ProdutosServicosService>();
+            services.AddScoped<IProdutosServicosRepository, ProdutosServicosRepository>();
+
             return services;
         }
 
@@ -62,6 +69,11 @@ namespace EP.Srv.Cliente.CrossCutting.Configurations
             services.AddMediatR(typeof(ListarFormaPagamentosCommand).Assembly);
             services.AddMediatR(typeof(AtualizaFormaPagamentosCommand).Assembly);
             services.AddMediatR(typeof(FormaPagamentosCommandHandler).Assembly);
+
+            services.AddMediatR(typeof(GravarCentroCustoCommand).Assembly);
+            services.AddMediatR(typeof(ListarCentroCustoCommand).Assembly);
+            services.AddMediatR(typeof(AtualizarCentroCustoCommand).Assembly);
+            services.AddMediatR(typeof(CentroDeCustoCommandHandler).Assembly);
 
             return services;
         }

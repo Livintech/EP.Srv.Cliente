@@ -1,5 +1,4 @@
-﻿using EP.Srv.Cliente.Domain.Commands.Banco;
-using EP.Srv.Cliente.Domain.Commands.CentroCusto;
+﻿using EP.Srv.Cliente.Domain.Commands.ProdutosServicos;
 using EP.Srv.Cliente.Domain.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,11 +12,11 @@ namespace EP.Srv.Cliente.Api.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public class CentroDeCustosController : Controller
+    public class ProdutosServicosController : Controller
     {
         private readonly IMediator _mediator;
 
-        public CentroDeCustosController(IMediator mediator)
+        public ProdutosServicosController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -26,7 +25,7 @@ namespace EP.Srv.Cliente.Api.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrador,Master")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BaseResponse))]
-        public async Task<IActionResult> CadastrarAsync([FromBody] GravarCentroCustoCommand command)
+        public async Task<IActionResult> CadastrarAsync([FromBody] GravarProdutosServicosCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
@@ -35,7 +34,7 @@ namespace EP.Srv.Cliente.Api.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrador,Master,Operador")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BaseResponse))]
-        public async Task<IActionResult> Listar([FromBody] ListarCentroCustoCommand command)
+        public async Task<IActionResult> Listar([FromBody] ListarProdutosServicosCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
@@ -44,7 +43,7 @@ namespace EP.Srv.Cliente.Api.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrador,Master,Operador")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BaseResponse))]
-        public async Task<IActionResult> Atualizar([FromBody] AtualizarCentroCustoCommand command)
+        public async Task<IActionResult> Atualizar([FromBody] AtualizarProdutosServicosCommand command)
         {
             return Ok(await _mediator.Send(command));
         }

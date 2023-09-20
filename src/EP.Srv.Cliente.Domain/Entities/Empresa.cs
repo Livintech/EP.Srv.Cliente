@@ -19,5 +19,7 @@
         public IEnumerable<Banco> Bancos { get; set; }
         public IEnumerable<Cliente> Clientes { get; set; }
         public IEnumerable<FormaPagamento> FormaPagamentos { get; set; }
+        public IEnumerable<CentroCustos> CentroCustos { get; set; }
+        public IEnumerable<ProdutosServicos> ProdutosServicos { get; set; }
     }
 }

@@ -11,6 +11,8 @@ namespace EP.Srv.Cliente.Infrastructure.Interfaces
         DbSet<Domain.Entities.Empresa> Empresa { get; set; }
         DbSet<Domain.Entities.Banco> Bancos { get; set; }
         DbSet<Domain.Entities.FormaPagamento> FormaPagamentos { get; set; }
+        DbSet<Domain.Entities.CentroCustos> CentroCustos { get; set; }
+        DbSet<Domain.Entities.ProdutosServicos> ProdutosServicos { get; set; }
 
         Task SaveAsync();
         void DetectChanges();
