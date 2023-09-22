@@ -35,7 +35,7 @@ namespace EP.Srv.Cliente.Application.Handlers.CommandHandlers
         {
             ArgumentNullException.ThrowIfNull(request, nameof(request));
 
-            return await _produtosServicosService.ListarProdutosServicosAsync();
+            return await _produtosServicosService.ListarProdutosServicosAsync(request.EmpresaId);
         }
 
         public async Task<BaseResponse> Handle(AtualizarProdutosServicosCommand request, CancellationToken cancellationToken)

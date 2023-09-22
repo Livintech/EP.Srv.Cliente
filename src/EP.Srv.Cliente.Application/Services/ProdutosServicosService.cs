@@ -50,7 +50,22 @@ namespace EP.Srv.Cliente.Application.Services
             return baseResponse;
         }
 
-        public async Task<BaseResponse> ListarProdutosServicosAsync()
-            => new BaseResponse { Data = await _produtosServicosRepository.ListarProdutosServicosAsync(), Success = true };
+        public async Task<BaseResponse> ListarProdutosServicosAsync(string empresaId)
+        {
+            var baseResponse = new BaseResponse();
+            try
+            {
+                var response = await _produtosServicosRepository.ListarProdutosServicosAsync();
+                baseResponse.Data = response.Where(a => a.EmpresaId == int.Parse(empresaId)).ToList();
+                baseResponse.Success = true;
+            }
+            catch (Exception ex)
+            {
+                baseResponse.Success = false;
+                baseResponse.Message = ex.Message;
+            }
+
+            return baseResponse;
+        }
     }
 }

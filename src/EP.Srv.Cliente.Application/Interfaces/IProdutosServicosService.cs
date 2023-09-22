@@ -7,6 +7,6 @@ namespace EP.Srv.Cliente.Application.Interfaces
     {
         Task<BaseResponse> AtualizarProdutosServicosAsync(ProdutosServicos produtosServicos);
         Task<BaseResponse> GravarPRodutosServicosAsync(ProdutosServicos produtosServicos);
-        Task<BaseResponse> ListarProdutosServicosAsync();
+        Task<BaseResponse> ListarProdutosServicosAsync(string empresaId);
     }
 }
