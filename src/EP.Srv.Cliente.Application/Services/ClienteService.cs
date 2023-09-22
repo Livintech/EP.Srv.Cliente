@@ -18,6 +18,26 @@ namespace EP.Srv.Cliente.Application.Services
             _userIdentity = userIdentity;
         }
 
+        public async Task<BaseResponse> AtualizarClienteAsync(Domain.Entities.Cliente cliente)
+        {
+            var baseResponse = new BaseResponse();
+
+            try
+            {
+                var response = await _clienteRepository.AtualizaClienteAsync(cliente);
+                baseResponse.Success = true;
+                baseResponse.Data = response;
+                baseResponse.Message = "Cliente atualizado com sucesso!";
+            }
+            catch (Exception ex)
+            {
+                baseResponse.Message = ex.Message;
+                baseResponse.Success = false;
+            }
+
+            return baseResponse;
+        }
+
         public async Task<BaseResponse> CadastrarAsync(Domain.Entities.Cliente cliente)
         {
             var baseResponse = new BaseResponse();

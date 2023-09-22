@@ -20,6 +20,8 @@ using EP.Srv.Cliente.Infrastructure.Identity;
 using System.Text.Json.Serialization;
 using EP.Srv.Cliente.Domain.Commands.Pagamento;
 using EP.Srv.Cliente.Domain.Commands.CentroCusto;
+using EP.Srv.Cliente.Domain.Commands.Empresa;
+using EP.Srv.Cliente.Application.Handlers.QueryHandlers;
 
 namespace EP.Srv.Cliente.CrossCutting.Configurations
 {
@@ -57,7 +59,12 @@ namespace EP.Srv.Cliente.CrossCutting.Configurations
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddMediatR(typeof(CadastroClienteCommand).Assembly);
+            services.AddMediatR(typeof(AtualizarClienteCommand).Assembly);
             services.AddMediatR(typeof(ClienteCommandHandler).Assembly);
+
+            services.AddMediatR(typeof(ListarEmpresasCommand).Assembly);
+            services.AddMediatR(typeof(ListarClientesCommand).Assembly);
+            services.AddMediatR(typeof(ListarTodosClientesQueryHandler).Assembly);
 
             services.AddMediatR(typeof(CadastroBancoCommand).Assembly);
             services.AddMediatR(typeof(ListarBancosCommand).Assembly);

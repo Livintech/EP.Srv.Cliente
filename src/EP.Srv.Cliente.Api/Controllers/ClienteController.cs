@@ -52,5 +52,16 @@ namespace EP.Srv.Cliente.Api.Controllers
         {
             return Ok(await _mediator.Send(command));
         }
+
+
+        [HttpPost("Atualizar")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrador,Master")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BaseResponse))]
+        public async Task<IActionResult> Atualizar([FromBody] AtualizarClienteCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
     }
 }
