@@ -19,12 +19,12 @@ namespace EP.Srv.Cliente.Application.Handlers.QueryHandlers
 
         public async Task<BaseResponse> Handle(ListarClientesCommand request, CancellationToken cancellationToken)
         {
-            return await _clienteService.LiatarClientesAsync(request.CodigoEmpresa);
+            return await _clienteService.ListarClientesAsync(request.CodigoEmpresa);
         }
 
         public async Task<BaseResponse> Handle(ListarEmpresasCommand request, CancellationToken cancellationToken)
         {
-            var empresas =  await _clienteService.LiatarEmpresasAsync();
+            var empresas =  await _clienteService.ListarEmpresasAsync(request.CodigoEmpresa);
 
             return empresas;
         }

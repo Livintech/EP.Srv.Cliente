@@ -6,7 +6,7 @@ namespace EP.Srv.Cliente.Application.Interfaces
     {
         Task<BaseResponse> AtualizarClienteAsync(Domain.Entities.Cliente cliente);
         Task<BaseResponse> CadastrarAsync(Domain.Entities.Cliente cliente);
-        Task<BaseResponse> LiatarClientesAsync(string codigoEmpresa);
-        Task<BaseResponse> LiatarEmpresasAsync();
+        Task<BaseResponse> ListarClientesAsync(string codigoEmpresa);
+        Task<BaseResponse> ListarEmpresasAsync(string codigoEmpresa);
     }
 }

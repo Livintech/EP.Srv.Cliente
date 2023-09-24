@@ -41,7 +41,7 @@ namespace EP.Srv.Cliente.Application.Services
         public async Task<BaseResponse> CadastrarAsync(Domain.Entities.Cliente cliente)
         {
             var baseResponse = new BaseResponse();
-            
+
             try
             {
                 var response = await _clienteRepository.CadastrarAsync(cliente);
@@ -58,7 +58,7 @@ namespace EP.Srv.Cliente.Application.Services
             return baseResponse;
         }
 
-        public async Task<BaseResponse> LiatarClientesAsync(string codigoEmpresa)
+        public async Task<BaseResponse> ListarClientesAsync(string codigoEmpresa)
         {
             var baseResponse = new BaseResponse();
 
@@ -67,7 +67,7 @@ namespace EP.Srv.Cliente.Application.Services
                 //var codigoEmpresa = _userIdentity.Perfil != "Master" ? _userIdentity.CodigoEmpresa.Substring(0, 5) : null;
                 var clientes = await _clienteRepository.ListarTodosAsync();
 
-                if(!string.IsNullOrEmpty(codigoEmpresa)) 
+                if (!string.IsNullOrEmpty(codigoEmpresa))
                 {
                     clientes = clientes.Where(c => c.CodigoEmpresa == codigoEmpresa).ToList();
                 }
@@ -84,14 +84,20 @@ namespace EP.Srv.Cliente.Application.Services
             return baseResponse;
         }
 
-        public async Task<BaseResponse> LiatarEmpresasAsync()
+        public async Task<BaseResponse> ListarEmpresasAsync(string codigoEmpresa)
         {
             var baseResponse = new BaseResponse();
 
             try
             {
                 var clientes = await _empresaRepository.ListarTodosAsync();
-                baseResponse.Data = clientes.ToList();
+
+                if (!string.IsNullOrEmpty(codigoEmpresa))
+                {
+                    clientes = clientes.Where(c => c.Id == int.Parse(codigoEmpresa)).ToList();
+                }
+
+                baseResponse.Data = clientes;
                 baseResponse.Success = true;
             }
             catch (Exception ex)
