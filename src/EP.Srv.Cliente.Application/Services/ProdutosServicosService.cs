@@ -56,7 +56,13 @@ namespace EP.Srv.Cliente.Application.Services
             try
             {
                 var response = await _produtosServicosRepository.ListarProdutosServicosAsync();
-                baseResponse.Data = response.Where(a => a.EmpresaId == int.Parse(empresaId)).ToList();
+
+                if (!string.IsNullOrEmpty(empresaId))
+                {
+                    response = response.Where(a => a.EmpresaId == int.Parse(empresaId)).ToList();
+                }
+
+                baseResponse.Data = response;
                 baseResponse.Success = true;
             }
             catch (Exception ex)

@@ -22,6 +22,7 @@ using EP.Srv.Cliente.Domain.Commands.Pagamento;
 using EP.Srv.Cliente.Domain.Commands.CentroCusto;
 using EP.Srv.Cliente.Domain.Commands.Empresa;
 using EP.Srv.Cliente.Application.Handlers.QueryHandlers;
+using EP.Srv.Cliente.Domain.Commands.PlanoContas;
 
 namespace EP.Srv.Cliente.CrossCutting.Configurations
 {
@@ -52,6 +53,9 @@ namespace EP.Srv.Cliente.CrossCutting.Configurations
             services.AddScoped<IProdutosServicosService, ProdutosServicosService>();
             services.AddScoped<IProdutosServicosRepository, ProdutosServicosRepository>();
 
+            services.AddScoped<IPlanoDeContasService, PlanoDeContasService>();
+            services.AddScoped<IPlanoDeContasRepository, PlanoDeContasRepository>();
+
             return services;
         }
 
@@ -81,6 +85,11 @@ namespace EP.Srv.Cliente.CrossCutting.Configurations
             services.AddMediatR(typeof(ListarCentroCustoCommand).Assembly);
             services.AddMediatR(typeof(AtualizarCentroCustoCommand).Assembly);
             services.AddMediatR(typeof(CentroDeCustoCommandHandler).Assembly);
+
+            services.AddMediatR(typeof(CadastrarPlanoContasCommand).Assembly);
+            services.AddMediatR(typeof(ListarPlanoContasCommand).Assembly);
+            services.AddMediatR(typeof(AtualizarPlanoContasCommand).Assembly);
+            services.AddMediatR(typeof(PlanoContasCommandHandler).Assembly);
 
             return services;
         }
