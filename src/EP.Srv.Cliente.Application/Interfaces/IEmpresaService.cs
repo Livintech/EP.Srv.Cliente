@@ -5,7 +5,8 @@ namespace EP.Srv.Cliente.Application.Interfaces
 {
     public interface IEmpresaService
     {
-        Task<BaseResponse> CadastrarAsync(Empresa empresa);
-        Task<BaseResponse> ListarTodosAsync();
+        Task<BaseResponse> CadastrarEmpresaAsync(Empresa empresa);
+        Task<BaseResponse> AtualizarEmpresaAsync(Empresa empresa);
+        Task<BaseResponse> ListarEmpresasAsync(string codigoEmpresa);
     }
 }

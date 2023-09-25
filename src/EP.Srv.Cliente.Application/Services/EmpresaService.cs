@@ -18,10 +18,28 @@ namespace EP.Srv.Cliente.Application.Services
             _userIdentity = userIdentity;
         }
 
-        public async Task<BaseResponse> CadastrarAsync(Empresa empresa)
+        public async Task<BaseResponse> AtualizarEmpresaAsync(Empresa empresa)
         {
             var baseResponse = new BaseResponse();
+            try
+            {
+                var response = await _empresaRepository.AtualizarEmpresaAsync(empresa);
+                baseResponse.Success = true;
+                baseResponse.Data = response;
+                baseResponse.Message = "Empresa atualizado com sucesso!";
+            }
+            catch (Exception ex)
+            {
+                baseResponse.Message = ex.Message;
+                baseResponse.Success = false;
+            }
 
+            return baseResponse;
+        }
+
+        public async Task<BaseResponse> CadastrarEmpresaAsync(Empresa empresa)
+        {
+            var baseResponse = new BaseResponse();
             try
             {
                 var response = await _empresaRepository.CadastrarAsync(empresa);
@@ -38,16 +56,20 @@ namespace EP.Srv.Cliente.Application.Services
             return baseResponse;
         }
 
-        public async Task<BaseResponse> ListarTodosAsync()
+        public async Task<BaseResponse> ListarEmpresasAsync(string codigoEmpresa)
         {
             var baseResponse = new BaseResponse();
-
             try
             {
                 var response = await _empresaRepository.ListarTodosAsync();
-                baseResponse.Success = true;
+
+                if (!string.IsNullOrEmpty(codigoEmpresa))
+                {
+                    response = response.Where(e => e.Id == int.Parse(codigoEmpresa)).ToList();
+                }
+
                 baseResponse.Data = response;
-                baseResponse.Message = "Cadastro efetuado com sucesso!";
+                baseResponse.Success = true;
             }
             catch (Exception ex)
             {

@@ -6,5 +6,6 @@ namespace EP.Srv.Cliente.Infrastructure.Interfaces
     {
         Task<Empresa> CadastrarAsync(Empresa empresa);
         Task<IEnumerable<Empresa>> ListarTodosAsync();
+        Task<Empresa> AtualizarEmpresaAsync(Empresa empresa);
     }
 }

@@ -65,10 +65,13 @@ namespace EP.Srv.Cliente.CrossCutting.Configurations
             services.AddMediatR(typeof(CadastroClienteCommand).Assembly);
             services.AddMediatR(typeof(AtualizarClienteCommand).Assembly);
             services.AddMediatR(typeof(ClienteCommandHandler).Assembly);
-
-            services.AddMediatR(typeof(ListarEmpresasCommand).Assembly);
             services.AddMediatR(typeof(ListarClientesCommand).Assembly);
             services.AddMediatR(typeof(ListarTodosClientesQueryHandler).Assembly);
+
+            services.AddMediatR(typeof(ListarEmpresasCommand).Assembly);
+            services.AddMediatR(typeof(CadastrarEmpresaCommand).Assembly);
+            services.AddMediatR(typeof(AtualizarEmpresaCommand).Assembly);
+            services.AddMediatR(typeof(EmpresaCommandHandler).Assembly);
 
             services.AddMediatR(typeof(CadastroBancoCommand).Assembly);
             services.AddMediatR(typeof(ListarBancosCommand).Assembly);

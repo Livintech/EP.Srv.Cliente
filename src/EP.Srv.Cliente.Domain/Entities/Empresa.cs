@@ -15,6 +15,7 @@
         public string Tipo { get; set; } = string.Empty;
         public string NomeRazao { get; set; } = string.Empty;
         public string DataSituacao { get; set; } = string.Empty;
+        public string Numero { get; set; } = string.Empty;
 
         public IEnumerable<Banco> Bancos { get; set; }
         public IEnumerable<Cliente> Clientes { get; set; }

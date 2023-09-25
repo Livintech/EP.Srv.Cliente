@@ -55,7 +55,7 @@ namespace EP.Srv.Cliente.Infrastructure.Repositories
             cliente.Ativo = true;
             var empresa = await _context.Empresa.Where(e => e.Id == int.Parse(cliente.CodigoEmpresa)).FirstOrDefaultAsync();
 
-            if (cliente.Empresa != null)
+            if (empresa != null)
             {
                 cliente.Empresa = empresa!;
                 _context.Clientes.Add(cliente);
