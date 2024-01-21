@@ -15,6 +15,7 @@ namespace EP.Srv.Cliente.Infrastructure.Context
         public DbSet<Domain.Entities.CentroCustos> CentroCustos { get; set; } = null!;
         public DbSet<Domain.Entities.ProdutosServicos> ProdutosServicos { get; set; } = null!;
         public DbSet<Domain.Entities.PlanoContas> PlanoContas { get; set; } = null!;
+        public DbSet<Domain.Entities.ContasPagar> ContasPagar { get; set; } = null!;
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -71,6 +72,11 @@ namespace EP.Srv.Cliente.Infrastructure.Context
             modelBuilder.Entity<Domain.Entities.PlanoContas>().ToTable("PlanoContas");
             modelBuilder.Entity<Domain.Entities.PlanoContas>().HasKey(l => l.Id);
             modelBuilder.Entity<Domain.Entities.PlanoContas>().Property(l => l.Id).UseMySqlIdentityColumn();
+
+            modelBuilder.Entity<Domain.Entities.ContasPagar>().ToTable("ContasPagar");
+            modelBuilder.Entity<Domain.Entities.ContasPagar>().HasKey(l => l.Id);
+            modelBuilder.Entity<Domain.Entities.ContasPagar>().Property(l => l.Id).UseMySqlIdentityColumn();
+            modelBuilder.Entity<Domain.Entities.ContasPagar>().HasOne(l => l.Empresa).WithMany(a => a.ContasPagar);
         }
     }
 }

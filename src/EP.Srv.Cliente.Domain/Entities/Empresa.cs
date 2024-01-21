@@ -22,5 +22,6 @@
         public IEnumerable<FormaPagamento> FormaPagamentos { get; set; }
         public IEnumerable<CentroCustos> CentroCustos { get; set; }
         public IEnumerable<ProdutosServicos> ProdutosServicos { get; set; }
+        public IEnumerable<ContasPagar> ContasPagar { get; set; }
     }
 }

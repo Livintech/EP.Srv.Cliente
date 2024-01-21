@@ -23,6 +23,7 @@ using EP.Srv.Cliente.Domain.Commands.CentroCusto;
 using EP.Srv.Cliente.Domain.Commands.Empresa;
 using EP.Srv.Cliente.Application.Handlers.QueryHandlers;
 using EP.Srv.Cliente.Domain.Commands.PlanoContas;
+using EP.Srv.Cliente.Domain.Commands.ContasPagar;
 
 namespace EP.Srv.Cliente.CrossCutting.Configurations
 {
@@ -55,6 +56,9 @@ namespace EP.Srv.Cliente.CrossCutting.Configurations
 
             services.AddScoped<IPlanoDeContasService, PlanoDeContasService>();
             services.AddScoped<IPlanoDeContasRepository, PlanoDeContasRepository>();
+
+            services.AddScoped<IContasPagarService, ContasPagarService>();
+            services.AddScoped<IContasPagarRepository, ContasPagarRepository>();
 
             return services;
         }
@@ -93,6 +97,10 @@ namespace EP.Srv.Cliente.CrossCutting.Configurations
             services.AddMediatR(typeof(ListarPlanoContasCommand).Assembly);
             services.AddMediatR(typeof(AtualizarPlanoContasCommand).Assembly);
             services.AddMediatR(typeof(PlanoContasCommandHandler).Assembly);
+
+            services.AddMediatR(typeof(CadastrarLancamentoCommand).Assembly);
+            services.AddMediatR(typeof(ListarLancamentoCommand).Assembly);
+            services.AddMediatR(typeof(AtualizarLancamentoCommand).Assembly);
 
             return services;
         }
@@ -167,8 +175,10 @@ namespace EP.Srv.Cliente.CrossCutting.Configurations
 
         }
 
-        public static IServiceCollection AddConfigurationsJson(this IServiceCollection services)
+        public static IServiceCollection AddConfigurationsJson(this IServiceCollection services, Action<JwtOptions> jwtOpt)
         {
+            services.Configure(jwtOpt);
+            services.AddSingleton(jwtOpt);
             services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options 
                 => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 

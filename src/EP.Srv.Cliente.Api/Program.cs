@@ -1,5 +1,6 @@
 using AspNet.Security.OAuth.Validation;
 using EP.Srv.Cliente.CrossCutting.Configurations;
+using EP.Srv.Cliente.CrossCutting.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HostFiltering;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +18,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfigurations();
 builder.Services.AddConfigurationServices();
 builder.Services.AddConfigurationMediatR();
-builder.Services.AddConfigurationsJson();
+builder.Services.AddConfigurationsJson(options =>
+{
+    options.Issuer = builder.Configuration["Jwt:Issuer"];
+    options.Audience = builder.Configuration["Jwt:Audience"];
+    options.Key = builder.Configuration["Jwt:Key"];
+});
+
+var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtOptions>();
+builder.Services.AddSingleton(jwtSettings);
+
 builder.Services.AddConfigurationsContext(options =>
 {
     options.DbConnectionString = builder.Configuration.GetConnectionString("DbConnectionString")!;
